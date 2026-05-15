@@ -133,15 +133,26 @@ Nếu savings ÂM → AI đắt hơn human → cần justify (24/7? đa ngôn ng
 
 Dùng AI tính xong, copy số vào đây. Đừng quên kiểm 1 lần xem số có hợp lý không.
 
-### Config 1 — _________________________
+**Giả định tính toán dùng cho phần này**
+
+```text
+- Web search API dùng theo worksheet: $0.005 / call.
+- LLM classifier dùng Gemini 2.5 Flash-Lite: 150 input + 20 output
+  → cost/classification = (150 × $0.10 + 20 × $0.40) / 1,000,000 = $0.000023.
+- Booking và Complaint chỉ route/handoff sang người thật, không gọi response model.
+- Với web ON selective: chỉ Visa/Policy và Weather/Event dùng web search.
+- Với web ON broad: Guide, Visa và Weather đều dùng web search ở mỗi turn.
+```
+
+### Config 1 — Economy Explorer
 
 | Item | Scenario A (4 turns) | Scenario B (7 turns) |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
+| Cost / conversation (avg) | $0.001000 | $0.001196 |
+| Monthly cost | $9.00 | $43.07 |
 | Human baseline | $4,500 | $18,000 |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| **Rẻ hơn human ___×** | 500.2× | 418.0× |
+| **Savings %** | 99.80% | 99.76% |
 
 **Sanity check** (trả lời cho nhóm trước khi đi tiếp):
 
@@ -149,42 +160,52 @@ Dùng AI tính xong, copy số vào đây. Đừng quên kiểm 1 lần xem số
 - Monthly có hợp lý không? (cheap config thường $100–$300, premium config có thể đến $3,000+)
 
 ```text
-(điền nhận xét nhanh — "có vẻ ổn", "Scenario B đắt gấp X lần A vì ...",
- hoặc "phải tính lại vì cost/conv $X.XX không hợp lý")
+Config này rất rẻ vì dùng Gemini Flash-Lite, keyword routing nên classifier = $0,
+web search OFF và chỉ giữ Last 3 turns. Cost/conv thấp hơn khoảng sanity range
+$0.005-$0.10, nhưng hợp lý vì không có web API và model rất rẻ; rủi ro là chất
+lượng/độ mới thông tin thấp hơn, nhất là Visa và Weather.
 ```
 
 ---
 
-### Config 2 — _________________________
+### Config 2 — Luxury Concierge
 
 | Item | Scenario A | Scenario B |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| Cost / conversation (avg) | $0.057066 | $0.069129 |
+| Monthly cost | $513.59 | $2,488.66 |
+| **Rẻ hơn human ___×** | 8.8× | 7.2× |
+| **Savings %** | 88.59% | 86.17% |
 
 **Sanity check**:
 
 ```text
-(điền nhận xét nhanh)
+Số này hợp lý cho premium config: Sonnet 4.6 đắt hơn nhiều, web search broad
+tốn $0.005 mỗi turn cho Guide/Visa/Weather, và Full History làm input token tăng
+đều theo độ dài cuộc hội thoại. Scenario B chỉ đắt hơn A khoảng 4.85× theo monthly,
+không phải 7×, vì Scenario B có 45% Booking/Complaint được handoff gần như không
+tốn LLM response cost.
 ```
 
 ---
 
-### Config 3 — _________________________
+### Config 3 — Smart Nomad
 
 | Item | Scenario A | Scenario B |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| Cost / conversation (avg) | $0.011212 | $0.013973 |
+| Monthly cost | $100.91 | $503.03 |
+| **Rẻ hơn human ___×** | 44.6× | 35.8× |
+| **Savings %** | 97.76% | 97.21% |
 
 **Sanity check**:
 
 ```text
-(điền nhận xét nhanh)
+Đây là mức cost hợp lý cho balanced config: Gemini Flash đắt hơn Flash-Lite nhưng
+vẫn rẻ hơn Sonnet rất nhiều. Web search chỉ bật cho Visa/Weather nên cost không
+bị đội lên ở Guide, trong khi Last 5 giữ đủ context cho phần lớn conversation.
+Monthly B cao hơn A khoảng 5× vì volume tăng 4× và conversation dài hơn, nhưng
+intent mix B có nhiều handoff nên không tăng tới 7×.
 ```
 
 ---
@@ -193,10 +214,15 @@ Dùng AI tính xong, copy số vào đây. Đừng quên kiểm 1 lần xem số
 
 | Item | Scenario A | Scenario B |
 |---|---|---|
-| Cost / conversation (avg) | $________ | $________ |
-| Monthly cost | $________ | $________ |
-| **Rẻ hơn human ___×** | _____× | _____× |
-| **Savings %** | ___% | ___% |
+| Cost / conversation (avg) | Không tính | Không tính |
+| Monthly cost | Không tính | Không tính |
+| **Rẻ hơn human ___×** | Không tính | Không tính |
+| **Savings %** | Không tính | Không tính |
+
+```text
+Nhóm chỉ dùng 3 config chính để so sánh: Economy Explorer, Luxury Concierge,
+Smart Nomad. Deep Guide là optional nên không đưa vào bảng cost chính.
+```
 
 ---
 
@@ -206,10 +232,10 @@ Mỗi config — estimate Low / Medium / High. Không có công cụ đo chính 
 
 | Config | Quality (Low/Med/High) | Speed (Low/Med/High) | Lý do |
 |---|---|---|---|
-| 1: ___ | ___ | ___ | (1 câu) |
-| 2: ___ | ___ | ___ | (1 câu) |
-| 3: ___ | ___ | ___ | (1 câu) |
-| 4: ___ | ___ | ___ | (1 câu) |
+| 1: Economy Explorer | Low-Medium | High | Rẻ và nhanh nhất vì dùng Flash-Lite, không web search, Last 3; phù hợp FAQ/Guide đơn giản nhưng dễ outdated ở Visa/Weather. |
+| 2: Luxury Concierge | High | Low-Medium | Chất lượng tốt nhất nhờ Sonnet, web broad và Full History; tốc độ chậm hơn vì model mạnh + web search mỗi turn. |
+| 3: Smart Nomad | Medium-High | Medium-High | Cân bằng nhất: Gemini Flash đủ tốt, web selective cho intent cần real-time, Last 5 giữ context vừa đủ. |
+| 4: Deep Guide | Không đánh giá | Không đánh giá | Optional, không đưa vào phạm vi tính cost chính của nhóm. |
 
 **Hướng dẫn ước tính**:
 
@@ -220,10 +246,10 @@ Mỗi config — estimate Low / Medium / High. Không có công cụ đo chính 
 
 ## Bảng kiểm trước khi sang file tiếp theo
 
-- [ ] Tất cả ≥3 configs đã có cost/conv + monthly cho cả 2 scenarios
-- [ ] Đã so sánh từng config với human baseline ($0.50/conv)
-- [ ] Có quality + speed estimate cho mỗi config
-- [ ] Đã sanity check — không có số "quá lạ" (cost <$0.001 hoặc >$1/conv)
+- [x] Tất cả ≥3 configs đã có cost/conv + monthly cho cả 2 scenarios
+- [x] Đã so sánh từng config với human baseline ($0.50/conv)
+- [x] Có quality + speed estimate cho mỗi config
+- [x] Đã sanity check — không có số "quá lạ" (cost <$0.001 hoặc >$1/conv)
 
 ⚑ **Checkpoint 11:00**: ≥1 config đã tính cost xong &nbsp; · &nbsp; ⚑ **Checkpoint 11:20**: tất cả configs đã tính cost xong cho cả 2 scenarios.
 
