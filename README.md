@@ -1,4 +1,44 @@
+
+# Day26-Track01-DangQuangMinh-2A202600022
+
+| Thành viên | MSSV | GitHub username | Phần phụ trách |
+|---|---:|---|---|
+| Phạm Việt Anh | 2A202600273 | `saig0nvang` | `worksheet/00-user-journey.md` - user journey, câu hỏi tourist, intent mix và insight |
+| Chu Minh Quân |  | `quanchu` | `worksheet/01-base-flow.md` - base flow, routing và 3 knobs |
+| Hoàng Đức Nghĩa | 2A202600371 | `HoangDucNghia` | `worksheet/02-config-design.md` - thiết kế configs, knobs, lý do chọn và rủi ro |
+| Lê Đức Thanh | 2A202600093 | `thanhld2026aik1` | `worksheet/03-cost-calculation.md` và `worksheet/04-comparison-table.md` - tính cost và bảng so sánh |
+| Đặng Quang Minh | 2A202600022 | `minh267` | `worksheet/05-recommendation.md` - recommendation, justification, present và Q&A |
+
+---
+
+
 # Ngày 27 — AI Conversation Cost Simulator
+
+## Mô tả repo
+
+Repo này là bài lab Day 27 của nhóm trong chương trình **VinUni A20 — AI Thực Chiến**. Nội dung chính là mô phỏng bài toán kinh tế khi triển khai chatbot AI cho công ty du lịch: nhóm đóng vai khách du lịch, thiết kế nhiều cấu hình chatbot, tính chi phí theo từng scenario, so sánh với human baseline và đưa ra recommendation cuối cùng.
+
+Các artifact chính của repo gồm:
+
+- `worksheet/00-user-journey.md`: mô phỏng user journey và phân loại intent.
+- `worksheet/01-base-flow.md`: mô tả base flow chatbot và 3 knobs cần tối ưu.
+- `worksheet/02-config-design.md`: thiết kế các configurations để so sánh.
+- `worksheet/03-cost-calculation.md`: tính chi phí cho từng config ở Scenario A và Scenario B.
+- `worksheet/04-comparison-table.md`: tổng hợp bảng so sánh cost/quality/speed.
+- `worksheet/05-recommendation.md`: recommendation cuối, justification và phần chuẩn bị present.
+- `todo.md`: checklist công việc và phân công trách nhiệm.
+
+## Phân công nhóm
+
+| Thành viên | MSSV | GitHub username | Phần phụ trách |
+|---|---:|---|---|
+| Phạm Việt Anh | 2A202600273 | `saig0nvang` | `worksheet/00-user-journey.md` - user journey, câu hỏi tourist, intent mix và insight |
+| Chu Minh Quân |  | `quanchu` | `worksheet/01-base-flow.md` - base flow, routing và 3 knobs |
+| Hoàng Đức Nghĩa | 2A202600371 | `HoangDucNghia` | `worksheet/02-config-design.md` - thiết kế configs, knobs, lý do chọn và rủi ro |
+| Lê Đức Thanh | 2A202600093 | `thanhld2026aik1` | `worksheet/03-cost-calculation.md` và `worksheet/04-comparison-table.md` - tính cost và bảng so sánh |
+| Đặng Quang Minh | 2A202600022 | `minh267` | `worksheet/05-recommendation.md` - recommendation, justification, present và Q&A |
+
+---
 
 > **Lab travel agency chatbot — bài toán kinh tế của AI Product**
 >
